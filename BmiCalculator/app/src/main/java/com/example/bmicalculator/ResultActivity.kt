@@ -2,6 +2,7 @@ package com.example.bmicalculator
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import com.example.bmicalculator.databinding.ActivityResultBinding
 import kotlin.math.pow
 
@@ -12,7 +13,7 @@ class ResultActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_result)
+        setContentView(binding.root)
 
         // 전달받은 키와 몸무게
         val height = intent.getFloatExtra("height", 0f)
@@ -33,7 +34,7 @@ class ResultActivity : AppCompatActivity() {
 
         // 이미지 표시
         when {
-            bmi > 23 ->
+            bmi >= 23 ->
                 binding.imageView.setImageResource(
                     R.drawable.ic_baseline_sentiment_very_dissatisfied_24)
             bmi >= 18.5 ->
@@ -43,5 +44,8 @@ class ResultActivity : AppCompatActivity() {
                 binding.imageView.setImageResource(
                     R.drawable.ic_baseline_sentiment_dissatisfied_24)
         }
+
+        // Toast를 사용하여 간단한 메시지 표시하기
+        Toast.makeText(this, "$bmi", Toast.LENGTH_SHORT).show()
     }
 }
