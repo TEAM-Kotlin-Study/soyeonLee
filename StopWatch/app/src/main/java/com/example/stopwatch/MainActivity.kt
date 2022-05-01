@@ -2,6 +2,7 @@ package com.example.stopwatch
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.TextView
 import com.example.stopwatch.databinding.ActivityMainBinding
 import java.util.*
 import kotlin.concurrent.timer
@@ -10,6 +11,7 @@ class MainActivity : AppCompatActivity() {
     private var time = 0
     private var timerTask: Timer? = null
     private var isRunning = false
+    private var lap = 1
 
     private val binding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
@@ -27,6 +29,10 @@ class MainActivity : AppCompatActivity() {
             } else {
                 pause()
             }
+        }
+
+        binding.lapButton.setOnClickListener {
+            recordLapTime()
         }
     }
 
@@ -46,5 +52,15 @@ class MainActivity : AppCompatActivity() {
     private fun pause() {
         binding.fab.setImageResource(R.drawable.ic_baseline_play_arrow_24)
         timerTask?.cancel()
+    }
+
+    private fun recordLapTime() {
+        val lapTime = this.time
+        val textView = TextView(this)
+        textView.text = "$lap LAP : ${lapTime / 100}.${lapTime % 100}"
+
+        // 맨 위에 랩타임 추가
+        binding.lapLayout.addView(textView, 0)
+        lap++
     }
 }
