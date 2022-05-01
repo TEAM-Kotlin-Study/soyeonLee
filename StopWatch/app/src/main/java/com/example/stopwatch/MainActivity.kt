@@ -34,6 +34,10 @@ class MainActivity : AppCompatActivity() {
         binding.lapButton.setOnClickListener {
             recordLapTime()
         }
+
+        binding.resetFab.setOnClickListener {
+            reset()
+        }
     }
 
     private fun start() {
@@ -63,4 +67,22 @@ class MainActivity : AppCompatActivity() {
         binding.lapLayout.addView(textView, 0)
         lap++
     }
+
+    private fun reset() {
+        timerTask?.cancel()
+
+        // 모든 변수 초기화
+        time = 0
+        isRunning = false
+
+        binding.fab.setImageResource(R.drawable.ic_baseline_play_arrow_24)
+
+        binding.secTextView.text = "0"
+        binding.milliTextView.text = "00"
+
+        // 모든 랩타임을 제거
+        binding.lapLayout.removeAllViews()
+        lap = 1
+    }
+
 }
