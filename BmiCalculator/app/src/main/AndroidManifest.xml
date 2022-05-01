@@ -11,7 +11,8 @@
         android:theme="@style/Theme.BmiCalculator">
         <activity
             android:name=".ResultActivity"
-            android:exported="false" />
+            android:parentActivityName=".MainActivity"
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
