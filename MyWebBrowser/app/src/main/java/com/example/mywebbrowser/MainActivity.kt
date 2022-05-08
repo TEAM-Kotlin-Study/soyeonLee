@@ -37,4 +37,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    override fun onBackPressed() {
+        if (binding.webView.canGoBack()) {   // 웹뷰가 이전 페이지로 갈 수 있다면
+            binding.webView.goBack()    // 이전 페이지로 이동
+        }else {
+            super.onBackPressed()   // 원래 동작 수행
+        }
+    }
 }
