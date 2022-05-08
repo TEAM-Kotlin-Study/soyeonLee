@@ -2,6 +2,8 @@ package com.example.mywebbrowser
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.webkit.WebView
+import android.webkit.WebViewClient
 import com.example.mywebbrowser.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -12,5 +14,17 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        // 웹뷰 기본 설정
+        binding.webView.apply {
+            settings.javaScriptEnabled = true
+            webViewClient = object : WebViewClient() {
+                override fun onPageFinished(view: WebView?, url: String?) {
+                    binding.urlEditText.setText(url)
+                }
+            }
+        }
+
+        binding.webView.loadUrl("https://www.google.com")
     }
 }
