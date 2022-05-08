@@ -83,13 +83,13 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
             R.id.action_send_text -> {
-                binding.webView.url?.let {
-                    url -> // 문자보내기
+                binding.webView.url?.let { url -> // 문자보내기
+                    sendSMS("031-123-4567", url)
                 }
             }
             R.id.action_email -> {
-                binding.webView.url?.let {
-                    url -> // 이메일 보내기
+                binding.webView.url?.let { url -> // 이메일 보내기
+                    email("test@example.com", "좋은 사이트", url)
                 }
                 return true
             }
@@ -111,12 +111,14 @@ class MainActivity : AppCompatActivity() {
             R.id.action_share -> {
                 binding.webView.url?.let { url ->
                     // 페이지 공유
+                    share(url)
                 }
                 return true
             }
             R.id.action_browser -> {
                 binding.webView.url?.let { url ->
                     //기본 웹 브라우저 열기
+                    browse(url)
                 }
                 return true
             }
