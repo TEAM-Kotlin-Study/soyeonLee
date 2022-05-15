@@ -93,4 +93,5 @@ class MainActivity : AppCompatActivity() {
         }
 
         Log.d("MainActivity", "getAllPhotos: $uris")
+    }
 }
