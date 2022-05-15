@@ -1,6 +1,7 @@
 package com.example.tiltsensor
 
 import TiltView
+import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.pm.ActivityInfo
 import android.hardware.Sensor
@@ -42,13 +43,16 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
         sensorManager.unregisterListener(this)
     }
 
-    override fun onSensorChanged(event: SensorEvent?) {    // 센서 정밀도가 변경되면 호출됨
+    override fun onSensorChanged(event: SensorEvent?) {
+        // 센서 정밀도가 변경되면 호출됨
         // values[0] : x축 - 위로 기울이면 -10 ~ 0, 아래로 기울이면 0 ~ 10
         // values[1] : y축 - 왼쪽으로 기울이면 -10 ~ 0, 오른쪽으로 기울이면 0 ~ 10
         // values[2] : z축 - 미사용
         event?.let {
-            Log.d("MainActivity", "onSensorChanged: x : ${event.values[0]}," +
+            Log.d(TAG, "onSensorChanged: x : ${event.values[0]}," +
                     " y : ${event.values[1]}, z : ${event.values[2]}")
+
+            tiltView.onSensorEvent(event)
         }
     }
 
