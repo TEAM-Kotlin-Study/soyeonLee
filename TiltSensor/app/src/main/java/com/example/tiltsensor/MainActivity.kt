@@ -1,6 +1,7 @@
 package com.example.tiltsensor
 
 import android.content.Context
+import android.content.pm.ActivityInfo
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -16,6 +17,7 @@ class MainActivity : AppCompatActivity(), SensorEventListener {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE // 화면이 가로 모드로 고정
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
