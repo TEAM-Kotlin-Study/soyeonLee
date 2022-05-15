@@ -4,15 +4,16 @@ import android.Manifest
 import android.content.ContentUris
 import android.content.pm.PackageManager
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import com.example.mygallery.databinding.ActivityMainBinding
+import kotlin.concurrent.timer
 
 class MainActivity : AppCompatActivity() {
     private val binding by lazy {
@@ -93,5 +94,24 @@ class MainActivity : AppCompatActivity() {
         }
 
         Log.d("MainActivity", "getAllPhotos: $uris")
+
+        // ViewPager2 어댑터 연결
+        val adapter = MyPagerAdapter(supportFragmentManager, lifecycle)
+        adapter.uris = uris
+
+        binding.viewPager.adapter = adapter
+
+        // 3초마다 자동 슬라이드
+        timer(period = 3000) {
+            runOnUiThread {
+                with(binding) {
+                    if (viewPager.currentItem < adapter.itemCount - 1) {
+                        viewPager.currentItem = viewPager.currentItem + 1
+                    } else {
+                        viewPager.currentItem = 0
+                    }
+                }
+            }
+        }
     }
 }

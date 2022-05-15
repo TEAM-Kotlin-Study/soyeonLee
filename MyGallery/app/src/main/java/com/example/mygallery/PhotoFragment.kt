@@ -1,4 +1,4 @@
-package com.survivalcoding.mygallery
+package com.example.mygallery
 
 import android.graphics.BitmapFactory
 import android.net.Uri
