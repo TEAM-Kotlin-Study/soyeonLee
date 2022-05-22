@@ -1,8 +1,10 @@
 package com.example.flashlight
 
+import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
 import android.content.Context
+import android.content.Intent
 import android.widget.RemoteViews
 
 /**
@@ -35,9 +37,15 @@ internal fun updateAppWidget(
     appWidgetId: Int
 ) {
     val widgetText = context.getString(R.string.appwidget_text)
-    // Construct the RemoteViews object
     val views = RemoteViews(context.packageName, R.layout.torch_app_widget)
+    // Construct the RemoteViews object
     views.setTextViewText(R.id.appwidget_text, widgetText)
+
+    // 실행할 Intent를 작성
+    val intent = Intent(context, TorchService::class.java)
+    val pendingIntent = PendingIntent.getService(context, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+
+    views.setOnClickPendingIntent(R.id.appwidget_layout, pendingIntent)
 
     // Instruct the widget manager to update the widget
     appWidgetManager.updateAppWidget(appWidgetId, views)
