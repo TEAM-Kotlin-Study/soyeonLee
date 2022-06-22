@@ -11,6 +11,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.todolist.adapter.TodoListAdapter
 import com.example.todolist.databinding.FragmentFirstBinding
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -41,10 +43,20 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // 할 일이 표시되도록 코드 추가
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        val todoListAdapter = TodoListAdapter { todo ->
+            // 클릭시 처리
+
+        }
+
+        binding.recyclerView.adapter = todoListAdapter
+
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.items.collect {
                     Log.d("FirstFragment", it.toString())
+                    todoListAdapter.submitList(it)
                 }
             }
         }
