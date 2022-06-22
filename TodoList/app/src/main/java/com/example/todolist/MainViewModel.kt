@@ -6,10 +6,10 @@ import androidx.lifecycle.viewModelScope
 import androidx.room.Room
 import com.example.todolist.data.Todo
 import com.example.todolist.data.TodoDatabase
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import java.util.*
 
 // AndroidViewModel은 액티비티와 수명을 같이 함
@@ -24,36 +24,37 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     private val _items = MutableStateFlow<List<Todo>>(emptyList())
     val items: StateFlow<List<Todo>> = _items
 
+    // 선택할 객체를 저장하도록 하고 이의 존재 유무에 따라 추가인지 수정인지 판단
+    var selectedTodo: Todo? = null
+
     // 초기화 시 모든 데이터를 읽어옴
     init {
         viewModelScope.launch {
-            db.todoDao().getAll().collect { todos ->
                 db.todoDao().getAll().collect { todos ->
                     _items.value = todos
-                }
             }
         }
     }
 
-    fun addTodo(text: String) {
+    fun addTodo(text: String, date: Long) {
         viewModelScope.launch {
-            db.todoDao().insert(Todo(text))
+            db.todoDao().insert(Todo(text, date))
         }
     }
 
-    fun updateTOdo(id: Long, text:String) {
-        _items.value
-            .find {todo -> todo.id == id}
-            ?.let { todo ->
-                todo.apply {
-                    title = text
-                    date = Calendar.getInstance().timeInMillis
-                }
-
-                viewModelScope.launch {
-                    db.todoDao().update(todo)
-                }
+    fun updateTodo(text: String, date:Long) {
+        selectedTodo?.let { todo ->
+            todo.apply {
+                this.title = text
+                this.date = date
             }
+
+            viewModelScope.launch {
+                db.todoDao().update(todo)
+            }
+
+            selectedTodo = null
+        }
     }
 
     fun deleteTodo(id: Long) {
@@ -63,6 +64,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 viewModelScope.launch {
                     db.todoDao().delete(todo)
                 }
+                selectedTodo = null
             }
     }
 }

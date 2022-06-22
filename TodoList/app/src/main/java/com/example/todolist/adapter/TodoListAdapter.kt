@@ -27,6 +27,7 @@ class TodoListAdapter(private val onClick: (Todo) -> Unit,) : ListAdapter<Todo, 
         private val binding: ItemTodoBinding,
         private val onClick: (Todo) -> Unit,
     ): RecyclerView.ViewHolder(binding.root) {
+
         fun bind(todo: Todo) {
             binding.text1.text = todo.title
             binding.textView2.text = DateFormat.format("yyyy/MM/dd", todo.date)
