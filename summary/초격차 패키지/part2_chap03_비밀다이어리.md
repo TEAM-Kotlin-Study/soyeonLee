@@ -27,3 +27,18 @@
                </intent-filter>
            </activity>
    ```
+
+4. view를 lazy하게 초기화하는 이유 - MainActivity가 생성될 시점에는 View가 아직 생성되기 전임. View가 다 그려졌다고 알려주는 함수가 onCreate인데, 이 onCreate가 생성되고 나서 numberPicker가 호출될 것이기 때문
+
+5. AlertDialog 띄우기
+
+   ```kotlin
+   AlertDialog.Builder(this)
+       .setTitle("실패!!")
+       .setMessage("비밀번호가 잘못되었습니다.")
+       .setPositiveButton("확인") { _, _ -> }
+       .create()
+       .show()
+   ```
+
+6. Handler - Thread를 관리를 할 때 사용
