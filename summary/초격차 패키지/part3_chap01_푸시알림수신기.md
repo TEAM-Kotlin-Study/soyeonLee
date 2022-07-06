@@ -1,0 +1,1 @@
+1. `android:textIsSelectable="true"`를 하면 텍스트창의 내용을 복사할 수 있음
