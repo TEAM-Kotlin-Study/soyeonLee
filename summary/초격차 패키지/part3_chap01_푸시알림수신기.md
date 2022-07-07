@@ -24,3 +24,6 @@
        delete rootProject.buildDir
    }
    ```
+
+6. https://firebase.google.com/docs/reference/fcm/rest/v1/projects.messages/send 참고
+7. 
