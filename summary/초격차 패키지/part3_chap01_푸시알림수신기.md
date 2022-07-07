@@ -27,3 +27,5 @@
 
 6. https://firebase.google.com/docs/reference/fcm/rest/v1/projects.messages/send 참고
 7. 안드로이드 8.0(API 수준 26)부터는 모든 알림을 채널에 할당해야 함. (안드로이드 공식 문서 참조)
+8. RemoteViews란, describes a view hierarchy that can be displayed in another process. (공식 doc 참고)
+   - custom layout을 만들 때, constraintlayout을 지원하지 않기 때문에 LinearLayout을 사용
