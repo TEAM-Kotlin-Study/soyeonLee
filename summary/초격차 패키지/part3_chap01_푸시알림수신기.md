@@ -26,4 +26,4 @@
    ```
 
 6. https://firebase.google.com/docs/reference/fcm/rest/v1/projects.messages/send 참고
-7. 
+7. 안드로이드 8.0(API 수준 26)부터는 모든 알림을 채널에 할당해야 함. (안드로이드 공식 문서 참조)
