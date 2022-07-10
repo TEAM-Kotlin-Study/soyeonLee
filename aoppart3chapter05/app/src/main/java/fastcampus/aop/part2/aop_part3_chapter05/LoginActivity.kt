@@ -80,6 +80,7 @@ class LoginActivity: AppCompatActivity() {
             loginButton.isEnabled = enable
             signUpButton.isEnabled = enable
         }
+
     }
 
     private fun getInputEmail(): String {
